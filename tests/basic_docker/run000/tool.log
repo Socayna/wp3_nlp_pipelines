@@ -1,0 +1,7 @@
+2022-07-18 11:09:42 | INFO: 0) Unpack information from JSON
+2022-07-18 11:09:42 | INFO: 1) Instantiate and Configure Tool
+2022-07-18 11:09:42 | INFO: 2) Run Tool
+root
+
+-- Starting the NLP pipeline
+['python /home/wp3_nlp_pipelines/nlp_pipeline.py']

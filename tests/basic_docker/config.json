@@ -1,0 +1,44 @@
+{
+    "input_files": [
+        {
+            "name": "sample_data",
+            "value": "unique_file_id_5e14abe0a37012.29503907",
+            "required": true,
+            "allow_multiple": false
+        }
+    ],
+    "arguments": [
+        {
+            "name": "execution",
+            "value": "/vre_template_tool/tool/tests/basic_docker/run000"
+        },
+        {
+            "name": "project",
+            "value": "example"
+        },
+        {
+            "name": "description",
+            "value": "test"
+        },
+        {
+            "name": "username",
+            "value": "Laura"
+        }
+    ],
+    "output_files": [
+        {
+            "name": "spark_df",
+            "required": true,
+            "allow_multiple": false,
+            "file": {
+                "file_type": "CSV",
+                "data_type": "sample_information_file",
+                "meta_data": {
+                    "visible": true,
+                    "tool": "response_estimation",
+                    "description": "CSV file containing the treatment response estimation associated to each patient."
+                },
+                "file_path": "/home/wp3_nlp_pipelines/spark_df.csv"
+            }
+        }
+    ]}
