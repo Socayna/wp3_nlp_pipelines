@@ -2,7 +2,7 @@
     {
         "_id": "unique_file_id_5e14abe0a37012.29503907",
         "type": "file",
-        "file_path": "data/eu_data_test/eu_es.txt",
+        "file_path": "/vre_template_tool/metaboprep/example_data/excel/parameter_file.txt",
         "file_type": "TXT",
         "data_type": "input_file",
         "compressed": 0,

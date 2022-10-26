@@ -27,18 +27,18 @@
     ],
     "output_files": [
         {
-            "name": "spark_df",
+            "name": "metaboprep_Report_v0",
             "required": true,
             "allow_multiple": false,
             "file": {
-                "file_type": "CSV",
+                "file_type": "md",
                 "data_type": "sample_information_file",
                 "meta_data": {
                     "visible": true,
-                    "tool": "response_estimation",
+                    "tool": "metaboprep",
                     "description": "CSV file containing the treatment response estimation associated to each patient."
                 },
-                "file_path": "/home/wp3_nlp_pipelines/spark_df.csv"
+                "file_path": "/vre_template_tool/metaboprep_Report_v0.md"
             }
         }
     ]}

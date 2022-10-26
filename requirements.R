@@ -1,0 +1,5 @@
+if (!requireNamespace("BiocManager", quietly = TRUE))
+install.packages("BiocManager")
+BiocManager::install("pcaMethods")
+install.packages("devtools")
+devtools::install("metaboprep")

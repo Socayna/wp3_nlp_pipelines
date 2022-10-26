@@ -36,7 +36,7 @@ class myTool(Tool):
         Init function.
 
         :param configuration: A dictionary containing parameters that define how the operation should be carried out,
-            which are specific to the NLP tool.
+            which are specific to the metaboprep tool.
         :type configuration: dict
         """
         Tool.__init__(self)
@@ -64,7 +64,7 @@ class myTool(Tool):
 
     def run(self, input_files, input_metadata, output_files, output_metadata):
         """
-        The main function to run the NLP tool.
+        The main function to run the metaboprep tool.
 
         :param input_files: Dictionary of input files locations.
         :type input_files: dict
@@ -87,7 +87,6 @@ class myTool(Tool):
             os.makedirs(execution_parent_dir, exist_ok=True)
             # Update working directory to execution path
             os.chdir(self.execution_path)
-            execution_path=os.chdir("/home/wp3_nlp_pipelines")
 
             # Create and validate the output file from tool execution
             output_id        = output_metadata[0]['name']
@@ -106,13 +105,13 @@ class myTool(Tool):
                 raise Exception(errstr)
 
         except:
-            errstr = "NLP execution failed. See logs."
+            errstr = "metaboprep execution failed. See logs."
             logger.fatal(errstr)
             raise Exception(errstr)
 
     def Rinit(self, input_files, output_metadata):
         """
-        The main function to run the NLP pipeline.
+        The main function to run the metaboprep pipeline.
 
         :param input_files: Dictionary of input files locations.
         :type input_files: dict
@@ -120,21 +119,22 @@ class myTool(Tool):
         rc = None
 
         output_file_path = output_metadata[0]['file']['file_path']
+        parameters_file_path = input_files.get('sample_data')
 
         try:
             ###
             ### Call Application
             print('\n-- Input data:')
             print(input_files)
+            print(parameters_file_path)
             print('\n-- CWD:')
-            os.chdir("/home/wp3_nlp_pipelines")
             print(os.getcwd())
             print("\n-- Expected output is:")
             print(output_file_path)
             cmd = [
-                'python','nlp_pipeline.py', "--output_csv", output_file_path 
+                'Rscript','/vre_template_tool/metaboprep/run_metaboprep_pipeline.R', parameters_file_path 
             ]
-            print("\n-- Starting the NLP pipeline")
+            print("\n-- Starting the metaboprep pipeline")
             print(cmd)
 
             process = subprocess.Popen(cmd, stdout=subprocess.PIPE,stderr=subprocess.STDOUT) # stderr=subprocess.PIPE
@@ -149,12 +149,12 @@ class myTool(Tool):
                 time.sleep(0.1)
 
             if rc is not None and rc != 0:
-                logger.progress("Something went wrong inside the NLP execution. See logs", status="WARNING")
+                logger.progress("Something went wrong inside the metaboprep execution. See logs", status="WARNING")
             else:
-                logger.progress("NLP execution finished successfully", status="FINISHED")
+                logger.progress("metaboprep execution finished successfully", status="FINISHED")
 
         except:
-            errstr = "NLP execution failed. See logs."
+            errstr = "metaboprep execution failed. See logs."
             logger.error(errstr)
             if rc is not None:
                 logger.error("RETVAL: {}".format(rc))
