@@ -46,12 +46,12 @@ class myTool(Tool):
             configuration = {}
 
         self.configuration.update(configuration)
-
+        
         for k, v in self.configuration.items():
             if isinstance(v, list):
                 self.configuration[k] = ' '.join(v)
 
-
+    
         # Init variables
         self.current_dir = os.path.abspath(os.path.dirname(__file__))
         self.parent_dir = os.path.abspath(self.current_dir + "/../")
@@ -91,12 +91,7 @@ class myTool(Tool):
 
             # Generate parameter file
             parameters_file_path = os.path.join(self.execution_path, "generated_parameter_file.txt")
-            defaults = {
-                "projectname": "My_Project",
-                "feature_missingness": 0.1,
-                "sample_missingness": 0.1
-            }
-            self.generate_parameter_file(input_files, parameters_file_path, defaults)
+            self.generate_parameter_file(input_files, self.arguments, parameters_file_path)
             
             # Tool Execution
             self.Rinit(input_files,output_metadata, parameters_file_path)
@@ -124,7 +119,7 @@ class myTool(Tool):
             logger.fatal(errstr)
             raise Exception(errstr)
 
-    def generate_parameter_file(self, input_files, parameters_file_path, defaults=None):
+    def generate_parameter_file(self, input_files, arguments, parameters_file_path):
         # set default parameter values
         params = {
             "projectname": "Example",
@@ -145,10 +140,9 @@ class myTool(Tool):
             "plot_distributions": False
         }   
         # update default parameter values with user-defined values
-        if defaults is not None:
-            params.update(defaults)
-       
-        print(input_files)
+        if arguments is not None:
+            params.update(arguments)
+
         # set datadirectory to the directory containing the first input file
         params["datadirectory"] = os.path.dirname(input_files['sample_data'])
         params["metabolite_data_file"] = os.path.basename(input_files['sample_data'])

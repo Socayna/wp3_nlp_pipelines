@@ -772,5 +772,8 @@ p2 = run.pa.imbalanced.power.make.plot(  mydata = qc_data$metabolite_data )
 ggpubr::ggarrange(p1, p2, labels = c("A", "B"), ncol = 2, nrow = 1)
 
 ```
-
 Figure Legend: Simulated  effect sizes (standardized by trait SD) are illustrated by their color in each figure. Figure (A) provides estimates of power for continuous traits with the total sample size on the x-axis and the estimated power on the y-axis. Figure (B) provides estimates of power for presence/absence (or binary) traits in an imbalanced design. The estimated power is on the y-axis. The total sample size is set to `r nrow(qc_data$metabolite_data)` and the x-axis depicts the number of individuals present (or absent) for the trait. The effects sizes illustrated here were chosen by running an initial set of simulations which identified effects sizes that would span a broad range of power estimates given the sample population's sample size.
+
+
+
+
