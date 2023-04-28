@@ -189,8 +189,6 @@ class myTool(Tool):
             cmd = [
                 'Rscript', os.path.join(self.current_dir, 'run_metaboprep_pipeline.R'), 
                 os.path.abspath(parameters_file_path)
-                #'--render-pdf', # add this flag to enable PDF rendering
-                #'--pdf-engine=pdflatex' # use pdflatex engine for PDF output
                 ]
 
             print("\n-- Starting the metaboprep pipeline")

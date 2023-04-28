@@ -1091,7 +1091,7 @@ if(plot_feature_distributions == TRUE){
 cat(paste0("XII. Create ZIP file of generated data.\n"))
 
 # create zip file path
-zip_file_path <- paste0(data_dir, "generated_data.zip")
+zip_file_path <- paste0(data_dir, "metaboprep_generated_data.zip")
 
 # create a zip archive of the generated data directory
 zip::zipr(zip_file_path, files = list.files(path = output_dir_path, full.names = TRUE))
