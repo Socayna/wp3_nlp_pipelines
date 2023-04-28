@@ -144,8 +144,8 @@ class myTool(Tool):
             params.update(arguments)
 
         # set datadirectory to the directory containing the first input file
-        params["datadirectory"] = os.path.dirname(input_files['sample_data'])
-        params["metabolite_data_file"] = os.path.basename(input_files['sample_data'])
+        params["datadirectory"] = self.execution_path
+        params["metabolite_data_file"] = input_files['sample_data']
 
         # generate parameter file contents
         contents = ""
@@ -189,7 +189,9 @@ class myTool(Tool):
             cmd = [
                 'Rscript', os.path.join(self.current_dir, 'run_metaboprep_pipeline.R'), 
                 os.path.abspath(parameters_file_path)
-            ]
+                #'--render-pdf', # add this flag to enable PDF rendering
+                #'--pdf-engine=pdflatex' # use pdflatex engine for PDF output
+                ]
 
             print("\n-- Starting the metaboprep pipeline")
             print(cmd)
@@ -220,6 +222,11 @@ class myTool(Tool):
             errstr = "Metaboprep execution failed. See logs."
             logger.fatal(errstr)
             raise Exception(errstr)
+    
+
+        #mdpdf -o output.pdf output_file_path
+
+
 
             #cmd = [
             #    'Rscript','/vre_template_tool/metaboprep/run_metaboprep_pipeline.R', parameters_file_path 
