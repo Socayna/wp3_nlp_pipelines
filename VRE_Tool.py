@@ -20,9 +20,9 @@ import pathlib
 import sys
 import subprocess
 import time
-from glob import glob
+import glob
 import numpy as np
-
+import shutil
 from basic_modules.tool import Tool
 from utils import logger
 
@@ -97,22 +97,26 @@ class myTool(Tool):
             self.Rinit(input_files,output_metadata, parameters_file_path)
             
             # Create and validate the output file from tool execution
-            output_id        = output_metadata[0]['name']
-            output_file_path = output_metadata[0]['file']['file_path']
-            # Tool Execution
-             
-            #self.Rinit(input_files,output_metadata)
-            #if os.path.isfile(output_file_path):
-            #    output_files[output_id] = [(output_file_path, "file")]
+            for output in output_metadata:
 
-             #   return output_files, output_metadata
-            if os.path.isfile(output_file_path):
-                output_files[output_id] = [(output_file_path, "file")]
-                return output_files, output_metadata
-            else:
-                errstr = "Output file {} not created. See logs.".format(output_file_path)
-                logger.fatal(errstr)
-                raise Exception(errstr)
+                output_id        = output['name']
+                output_file_path = output['file']['file_path']
+
+                if output_id == "metaboprep_report":
+                    files_metabo_html = glob.glob("metaboprep_release_*/*.html")
+                    if files_metabo_html:
+                        shutil.copy(files_metabo_html[0], output_file_path)
+                    else:
+                        errstr = "No HTML files found in metaboprep_release_* directory."
+                        logger.fatal(errstr)
+                if os.path.isfile(output_file_path):
+                    output_files[output_id] = [(output_file_path, "file")]
+                else:
+                    errstr = "Output file {} not created. See logs.".format(output_file_path)
+                    logger.fatal(errstr)
+                    raise Exception(errstr)
+                
+            return output_files, output_metadata
 
         except:
             errstr = "metaboprep execution failed. See logs."
